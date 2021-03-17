@@ -1,2 +1,2 @@
 # SPICE
-Codes will be available soon!
+The Code of SPICE will be available soon!
