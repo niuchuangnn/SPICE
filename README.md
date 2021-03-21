@@ -48,7 +48,7 @@ python tools/eval_self.py --config-file configs/stl10/eval.py --weight PATH/TO/M
 ```
 Evaluation of SPICE-Semi:
 ```shell script
-python tools/eval_semi.py --load_path ./model_zoo/model_cifar10.pth --net WideResNet --widen_factor 2 --data_dir ./datasets/cifar10 --dataset cifar10 --all 1 
+python tools/eval_semi.py --load_path PATH/TO/MODEL --net WideResNet --widen_factor 2 --data_dir PATH/TO/DATA --dataset cifar10 --all 1 
 ```
 Read the [evaluation tutorial](./evaluation.md) for more descriptions also including the visualization.
 
