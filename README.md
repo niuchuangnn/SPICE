@@ -1,15 +1,16 @@
 # SPICE: Semantic Pseudo-labeling for Image Clustering
+By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [Ge Wang](https://www.linkedin.com/in/ge-wang-axis/)
 
 This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382.pdf). (In updating)
 
 
 <tr>
-<td><img  align="center" height="360" src="./figures/framework.png"></td>
+<p align="center"> <img height="360" src="./figures/framework.png"></p>
 </tr>
 
 
 <tr>
-<td><img  align="center"  height="200" src="./figures/proto-local.png"></td>
+<td><img  height="190" src="./figures/proto-local.png"></td>
 </tr>
 
 - **SOTA on 5 benchmarks. Please refer to [Papers With Code](https://paperswithcode.com/paper/spice-semantic-pseudo-labeling-for-image) for [Image Clustering](https://paperswithcode.com/task/image-clustering)**
@@ -74,3 +75,10 @@ All trained models in our paper are available as follows.
 |                  |  SPICE            | 55.4                  | 50.4            | 34.3      |[Model](https://drive.google.com/file/d/1-qqckC8N9_zcIyI8NjB51qApDalFoXti/view?usp=sharing)  |
 | TinyImageNet     |  SPICE-Self       | 30.5                  | 44.9            | 16.3      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
 |                  |  SPICE-Self*      | 29.2                  | 52.5            | 14.5      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
+
+
+## Acknowledgement for reference repos
+- [GATCluster](https://github.com/niuchuangnn/GATCluster)
+- [MOCO](https://github.com/facebookresearch/moco)
+- [SCAN](https://github.com/wvangansbeke/Unsupervised-Classification)
+- [FixMatch](https://github.com/LeeDoYup/FixMatch-pytorch)
