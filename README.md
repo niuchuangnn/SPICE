@@ -38,6 +38,9 @@ git clone https://github.com/niuchuangnn/SPICE.git
 cd SPICE
 ```
 
+## Data
+Prepare datasets of interest as described in [dataset.md](./dataset.md).
+
 ## Training
 Read the [training tutorial](./train.md) for details.
 
