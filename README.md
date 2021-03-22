@@ -1,7 +1,7 @@
 # SPICE: Semantic Pseudo-labeling for Image Clustering
 By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [Ge Wang](https://www.linkedin.com/in/ge-wang-axis/)
 
-This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382.pdf). (In updating)
+This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382.pdf). (**In updating**)
 
 
 <tr>
