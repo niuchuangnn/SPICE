@@ -1,6 +1,6 @@
-#Evaluation of SPICE
+# Evaluation of SPICE
 
-> An example on STL10:
+>An example on STL10:
 
 SPICE-Self:
 ```shell script
