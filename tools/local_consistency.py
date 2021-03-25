@@ -155,6 +155,8 @@ def main_worker(gpu, ngpus_per_node, cfg):
         raise NotImplementedError("Only DistributedDataParallel is supported.")
 
     state_dict = torch.load(cfg.model.pretrained)
+    if 'state_dict' in state_dict.keys():
+        state_dict = state_dict['state_dict']
     model.load_state_dict(state_dict)
     cudnn.benchmark = True
 

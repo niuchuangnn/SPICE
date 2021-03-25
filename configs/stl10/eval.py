@@ -1,4 +1,4 @@
-model_name = "local_consistency"
+model_name = "eval"
 weight = './model_zoo/self_model_stl10.pth.tar'
 device_id = 0
 num_cluster = 10
