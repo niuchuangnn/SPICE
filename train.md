@@ -19,7 +19,7 @@ python tools/train_self_v2.py
 python tools/local_consistency.py
 ```
 
-##### 5. Train SPICE-Semi
+##### 5. Train SPICE-Semi, assuming 4 GPUs available.
 ```shell script
 python ./tools/train_semi.py --unlabeled 1 --num_classes 10 --num_workers 4 --dist-url tcp://localhost:10001 --label_file ./results/stl10/eval/labels_reliable_0.983136_6760.npy --save_dir ./results/stl10/spice_semi --save_name 098_6760 --batch_size 64  --net WideResNet_stl10 --data_dir ./datasets/stl10 --dataset stl10
 ```
