@@ -85,3 +85,4 @@ All trained models in our paper are available as follows.
 - [MOCO](https://github.com/facebookresearch/moco)
 - [SCAN](https://github.com/wvangansbeke/Unsupervised-Classification)
 - [FixMatch](https://github.com/LeeDoYup/FixMatch-pytorch)
+- [IIC](https://github.com/xu-ji/IIC)

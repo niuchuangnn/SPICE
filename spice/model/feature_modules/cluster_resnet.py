@@ -119,11 +119,9 @@ class ClusterResNet(ResNetTrunk):
 
       self.avgpool = nn.AvgPool2d(avg_pool_sz, stride=1)
 
-      self.test = test
       if test:
         self.fc = nn.Linear(512, num_classes)
       else:
-        # self.mlp = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
         self.fc = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
 
   def forward(self, x):
@@ -139,13 +137,7 @@ class ClusterResNet(ResNetTrunk):
 
     if not self.feature_only:
       x = self.avgpool(x)
-
       x = x.view(x.size(0), -1)
-
-      # if self.test:
-      #   x = self.fc(x)
-      # else:
-      #   x = self.mlp(x)
       x = self.fc(x)
 
     return x

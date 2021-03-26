@@ -71,7 +71,7 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
     def __init__(self, block, num_blocks, in_channel=3, zero_init_residual=False,
-                 test=False, feature_only=False, num_classes=10, **kwargs):
+                 test=True, feature_only=False, num_classes=10, **kwargs):
         super(ResNet, self).__init__()
         self.in_planes = 64
 
@@ -88,11 +88,10 @@ class ResNet(nn.Module):
         if not feature_only:
             self.avgpool = nn.AvgPool2d(7, stride=1)
 
-            self.test = test
             if test:
                 self.fc = nn.Linear(512, num_classes)
             else:
-                self.mlp = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
+                self.fc = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -130,15 +129,9 @@ class ResNet(nn.Module):
 
         if not self.feature_only:
             out = self.avgpool(out)
-
             out = out.view(out.size(0), -1)
+            out = self.fc(out)
 
-            if self.test:
-                out = self.fc(out)
-            else:
-                out = self.mlp(out)
-        # out = self.avgpool(out)
-        # out = torch.flatten(out, 1)
         return out
 
 

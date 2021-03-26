@@ -1,7 +1,5 @@
 from .convnet import ConvNet
 from .mlp import MLP
-from .resnet import ResNet5gTrunk
-from .resnet_all import resnet34
 from .cluster_resnet import ClusterResNet
 from .resnet_stl import resnet18
 from .resnet_cifar import resnet18_cifar
@@ -15,12 +13,8 @@ def build_feature_module(fea_cfg_ori):
         return MLP(**fea_cfg)
     elif fea_type == "convnet":
         return ConvNet(**fea_cfg)
-    elif fea_type == "resnet5g":
-        return ResNet5gTrunk(**fea_cfg)
     elif fea_type == "clusterresnet":
         return ClusterResNet(**fea_cfg)
-    elif fea_type == "resnet34":
-        return resnet34(**fea_cfg)
     elif fea_type == "resnet18":
         return resnet18(**fea_cfg)
     elif fea_type == "resnet18_cifar":

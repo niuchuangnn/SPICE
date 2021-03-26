@@ -23,6 +23,7 @@ import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.models as models
 from spice.model.feature_modules.cluster_resnet import ClusterResNet
+from spice.model.feature_modules.resnet_stl import resnet18
 
 import moco.loader
 import moco.builder
@@ -35,7 +36,7 @@ model_names = sorted(name for name in models.__dict__
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument('-data', metavar='DIR', default='./datasets/stl10',
                     help='path to dataset')
-parser.add_argument('-save-folder', metavar='DIR', default='./results/stl10/moco',
+parser.add_argument('--save_folder', metavar='DIR', default='./results/stl10/moco',
                     help='path to dataset')
 parser.add_argument('-save-freq', default=1, type=int, metavar='N',
                     help='frequency of saving model')
@@ -168,6 +169,8 @@ def main_worker(gpu, ngpus_per_node, args):
     print("=> creating model '{}'".format(args.arch))
     if args.arch == "clusterresnet":
         base_model = ClusterResNet
+    elif args.arch == "resnet18":
+        base_model = resnet18
     else:
         base_model = models.__dict__[args.arch]
     model = moco.builder.MoCo(
