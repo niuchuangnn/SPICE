@@ -1,5 +1,6 @@
 model_name = "eval"
 weight = './model_zoo/self_model_stl10.pth.tar'
+model_type = "clusterresnet"
 device_id = 0
 num_cluster = 10
 batch_size = 1000
@@ -39,7 +40,7 @@ data_test = dict(
 
 model = dict(
     feature=dict(
-        type="clusterresnet",
+        type=model_type,
         num_classes=num_cluster,
         in_channels=3,
         in_size=96,

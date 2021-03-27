@@ -70,18 +70,28 @@ class Bottleneck(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block=BasicBlock, num_blocks=[2, 2, 2, 2], in_channel=3, zero_init_residual=False, num_classes=128,
-                 feature_only=False, test=True, **kwargs):
+    def __init__(self, block, num_blocks, in_channel=3, zero_init_residual=False,
+                 test=True, feature_only=False, num_classes=10, **kwargs):
         super(ResNet, self).__init__()
         self.in_planes = 64
 
         self.conv1 = nn.Conv2d(in_channel, 64, kernel_size=3, stride=1, padding=1,
                                bias=False)
         self.bn1 = nn.BatchNorm2d(64)
+        self.maxpool = nn.MaxPool2d(kernel_size=2, stride=2, padding=1)
         self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
         self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
         self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2)
         self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=2)
+
+        self.feature_only = feature_only
+        if not feature_only:
+            self.avgpool = nn.AvgPool2d(7, stride=1)
+
+            if test:
+                self.fc = nn.Linear(512, num_classes)
+            else:
+                self.fc = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -101,15 +111,6 @@ class ResNet(nn.Module):
                 elif isinstance(m, BasicBlock):
                     nn.init.constant_(m.bn2.weight, 0)
 
-        self.feature_only = feature_only
-        if not feature_only:
-            self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-
-            if test:
-                self.fc = nn.Linear(512, num_classes)
-            else:
-                self.fc = nn.Sequential(nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, num_classes))
-
     def _make_layer(self, block, planes, num_blocks, stride):
         strides = [stride] + [1] * (num_blocks - 1)
         layers = []
@@ -120,7 +121,7 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.maxpool(F.relu(self.bn1(self.conv1(x))))
         out = self.layer1(out)
         out = self.layer2(out)
         out = self.layer3(out)
@@ -134,5 +135,15 @@ class ResNet(nn.Module):
         return out
 
 
-def resnet18_cifar(**kwargs):
+def resnet18(**kwargs):
     return ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
+
+
+class build_ResNet18:
+    def __init__(self, **kwargs):
+        pass
+
+    def build(self, num_classes):
+        return ResNet(BasicBlock,
+                      [2, 2, 2, 2],
+                      num_classes=num_classes)

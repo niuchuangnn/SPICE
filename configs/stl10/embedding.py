@@ -1,5 +1,6 @@
 model_name = "embedding"
 weight = "./results/stl10/moco/checkpoint_0999.pth.tar"
+model_type = "clusterresnet"
 device = 0
 num_cluster = 10
 batch_size = 1000
@@ -36,7 +37,7 @@ data_test = dict(
 
 
 model_sim = dict(
-    type="clusterresnet",
+    type=model_type,
     num_classes=128,
     in_channels=3,
     in_size=96,

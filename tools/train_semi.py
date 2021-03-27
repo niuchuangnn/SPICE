@@ -105,7 +105,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # SET FixMatch: class FixMatch in models.fixmatch
     args.bn_momentum = 1.0 - args.ema_m
-    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny']:
+    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18']:
         _net_builder = net_builder(args.net,
                                    args.net_from_name,
                                    {'depth': args.depth,
@@ -291,7 +291,7 @@ if __name__ == "__main__":
     
     parser.add_argument('--data_dir', type=str, default='./datasets/stl10')
     parser.add_argument('--dataset', type=str, default='stl10')
-    parser.add_argument('--label_file', type=str, default='./results/stl10/local_consistency/labels_reliable_0.984639_6510.npy')
+    parser.add_argument('--label_file', type=str, default='./results/stl10/local_consistency/labels_reliable_0.986329_6510.npy')
     parser.add_argument('--all', type=int, default=1)
     parser.add_argument('--unlabeled', type=int, default=0)
     parser.add_argument('--train_sampler', type=str, default='RandomSampler')

@@ -2,6 +2,7 @@ model_name = "spice_self"
 pre_model = "./results/stl10/moco/checkpoint_0999.pth.tar"
 embedding = "./results/stl10/embedding/feas_moco_512_l2.npy"
 resume = "./results/stl10/{}/checkpoint_last.pth.tar".format(model_name)
+model_type = "clusterresnet"
 num_head = 10
 num_workers = 4
 device_id = 0
@@ -86,7 +87,7 @@ data_test = dict(
 
 model = dict(
     feature=dict(
-        type="clusterresnet",
+        type=model_type,
         num_classes=num_cluster,
         in_channels=3,
         in_size=96,

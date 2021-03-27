@@ -4,7 +4,7 @@ A step-by-step training tutorial for STL10 datast is as follows.
 
 ##### 1. Pretrain representation learning model, i.e., MoCo, assuming 4 GPUs available.
 ```shell script
-python tools/train_moco_stl10.py
+python tools/train_moco.py
 ```
 ##### 2. Precompute embedding features
 ```shell script

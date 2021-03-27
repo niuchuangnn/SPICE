@@ -24,34 +24,36 @@ import torchvision.transforms as transforms
 import torchvision.models as models
 from spice.model.feature_modules.cluster_resnet import ClusterResNet
 from spice.model.feature_modules.resnet_stl import resnet18
+from spice.model.feature_modules.resnet_cifar import resnet18_cifar
 
 import moco.loader
 import moco.builder
 from moco.stl10 import STL10
+from moco.cifar import CIFAR10, CIFAR100
 
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
     and callable(models.__dict__[name]))
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('-data', metavar='DIR', default='./datasets/stl10',
+parser.add_argument('--data_type', default='stl10',
                     help='path to dataset')
+parser.add_argument('--data', metavar='DIR', default='./datasets/stl10',
+                    help='path to dataset')
+parser.add_argument('--all', default=1, type=int,
+                    help='1 denotes using both train and test data')
 parser.add_argument('--save_folder', metavar='DIR', default='./results/stl10/moco',
                     help='path to dataset')
-parser.add_argument('-save-freq', default=1, type=int, metavar='N',
+parser.add_argument('--save-freq', default=1, type=int, metavar='N',
                     help='frequency of saving model')
-parser.add_argument('-a', '--arch', metavar='ARCH', default='clusterresnet',
-                    choices=model_names,
-                    help='model architecture: ' +
-                        ' | '.join(model_names) +
-                        ' (default: resnet50)')
-parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
+parser.add_argument('--arch', metavar='ARCH', default='clusterresnet')
+parser.add_argument('--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 32)')
 parser.add_argument('--epochs', default=1000, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('-b', '--batch-size', default=128, type=int,
+parser.add_argument('--batch-size', default=128, type=int,
                     metavar='N',
                     help='mini-batch size (default: 256), this is the total '
                          'batch size of all GPUs on the current node when '
@@ -65,7 +67,7 @@ parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
 parser.add_argument('--wd', '--weight-decay', default=1e-4, type=float,
                     metavar='W', help='weight decay (default: 1e-4)',
                     dest='weight_decay')
-parser.add_argument('-p', '--print-freq', default=10, type=int,
+parser.add_argument('--print-freq', default=10, type=int,
                     metavar='N', help='print frequency (default: 10)')
 parser.add_argument('--resume', default='./results/stl10/moco/checkpoint_last.pth.tar', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
@@ -171,6 +173,8 @@ def main_worker(gpu, ngpus_per_node, args):
         base_model = ClusterResNet
     elif args.arch == "resnet18":
         base_model = resnet18
+    elif args.arch == "resnet18_cifar":
+        base_model = resnet18_cifar
     else:
         base_model = models.__dict__[args.arch]
     model = moco.builder.MoCo(
@@ -234,8 +238,6 @@ def main_worker(gpu, ngpus_per_node, args):
     cudnn.benchmark = True
 
     # Data loading code
-    # traindir = os.path.join(args.data, 'train')
-    traindir = args.data
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
     if args.aug_plus:
@@ -262,8 +264,21 @@ def main_worker(gpu, ngpus_per_node, args):
             normalize
         ]
 
-    train_dataset = STL10(traindir, split="train+test+unlabeled",
-                          transform=moco.loader.TwoCropsTransform(transforms.Compose(augmentation)))
+    if args.data_type == 'stl10':
+        if args.all:
+            split = "train+test+unlabeled"
+        else:
+            split = "train+unlabeled"
+        train_dataset = STL10(args.data, split=split,
+                              transform=moco.loader.TwoCropsTransform(transforms.Compose(augmentation)))
+    elif args.data_type == 'cifar10':
+        train_dataset = CIFAR10(args.data, all=args.all,
+                                transform=moco.loader.TwoCropsTransform(transforms.Compose(augmentation)))
+    elif args.data_type == 'cifar100':
+        train_dataset = CIFAR100(args.data, all=args.all,
+                                 transform=moco.loader.TwoCropsTransform(transforms.Compose(augmentation)))
+    else:
+        raise TypeError
 
     if args.distributed:
         train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset)

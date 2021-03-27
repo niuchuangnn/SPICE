@@ -58,6 +58,9 @@ def net_builder(net_name, from_name: bool, net_conf=None):
         elif net_name == 'WideResNet_tiny':
             import fixmatch.models.nets.wrn_tiny as net
             builder = getattr(net, 'build_WideResNet')()
+        elif net_name == 'resnet18':
+            import fixmatch.models.nets.resnet_stl as net
+            builder = getattr(net, 'build_ResNet18')()
         else:
             assert Exception("Not Implemented Error")
             
