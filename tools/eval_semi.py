@@ -110,7 +110,7 @@ if __name__ == "__main__":
             del load_model[k]
             # print(k)
 
-    if args.net in ['WideResNet', 'WideResNet_stl10']:
+    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18', 'resnet18_cifar']:
         _net_builder = net_builder(args.net,
                                    args.net_from_name,
                                    {'depth': args.depth,

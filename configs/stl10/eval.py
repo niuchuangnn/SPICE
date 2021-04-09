@@ -1,9 +1,10 @@
 model_name = "eval"
 weight = './model_zoo/self_model_stl10.pth.tar'
 model_type = "clusterresnet"
+# model_type = 'resnet18'
 device_id = 0
 num_cluster = 10
-batch_size = 1000
+batch_size = 100
 fea_dim = 512
 center_ratio = 0.5
 world_size = 1

@@ -1,5 +1,7 @@
 model_name = "eval"
 weight = './model_zoo/self_model_cifar10.pth.tar'
+model_type = "clusterresnet"
+# model_type = "resnet18_cifar"
 device_id = 0
 num_cluster = 10
 batch_size = 1000
@@ -39,7 +41,7 @@ data_test = dict(
 
 model = dict(
     feature=dict(
-        type="clusterresnet",
+        type=model_type,
         num_classes=num_cluster,
         in_channels=3,
         in_size=32,
@@ -56,7 +58,7 @@ model = dict(
                                 ratio_end=1,
                                 center_ratio=center_ratio,
                                 )]*1,
-              ratio_confident=0.90,
+              ratio_confident=0.99,
               num_neighbor=100,
               ),
     model_type="moco_select",

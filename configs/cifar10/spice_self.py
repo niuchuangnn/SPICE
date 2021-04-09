@@ -1,8 +1,12 @@
 model_name = "spice_self"
-pre_model = "./results/stl10/moco/checkpoint_0999.pth.tar"
-embedding = "./results/stl10/embedding/feas_moco_512_l2.npy"
-resume = "./results/stl10/{}/checkpoint_last.pth.tar".format(model_name)
+pre_model = "./results/cifar10/moco/checkpoint_0999.pth.tar"
+embedding = "./results/cifar10/embedding/feas_moco_512_l2.npy"
+resume = "./results/cifar10/{}/checkpoint_last.pth.tar".format(model_name)
 model_type = "clusterresnet"
+# pre_model = "./results/cifar10/moco_res18/checkpoint_0999.pth.tar"
+# embedding = "./results/cifar10/embedding_res18/feas_moco_512_l2.npy"
+# resume = "./results/cifar10/{}/checkpoint_last.pth.tar".format(model_name)
+# model_type = "resnet18"
 num_head = 10
 num_workers = 4
 device_id = 0
@@ -36,43 +40,43 @@ eval_ent = False
 eval_ent_weight = 0
 
 data_train = dict(
-    type="stl10_emb",
-    root_folder="./datasets/stl10",
+    type="cifar10",
+    root_folder="./datasets/cifar10",
     embedding=embedding,
-    split="train+test",
+    train=True,
+    all=True,
     ims_per_batch=batch_size,
     shuffle=True,
     aspect_ratio_grouping=False,
-    train=True,
     show=False,
     trans1=dict(
         aug_type="weak",
-        crop_size=96,
+        crop_size=32,
         normalize=dict(mean=[0.485, 0.456, 0.406],
                        std=[0.229, 0.224, 0.225]),
     ),
 
     trans2=dict(
         aug_type="scan",
-        crop_size=96,
+        crop_size=32,
         normalize=dict(mean=[0.485, 0.456, 0.406],
                        std=[0.229, 0.224, 0.225]),
         num_strong_augs=4,
         cutout_kwargs=dict(n_holes=1,
-                           length=32,
+                           length=16,
                            random=True)
     ),
 )
 
 data_test = dict(
-    type="stl10_emb",
-    root_folder="./datasets/stl10",
+    type="cifar10",
+    root_folder="./datasets/cifar10",
     embedding=embedding,
-    split="train+test",
+    train=True,
+    all=True,
     shuffle=False,
     ims_per_batch=50,
     aspect_ratio_grouping=False,
-    train=False,
     show=False,
     trans1=dict(
         aug_type="test",
@@ -92,7 +96,7 @@ model = dict(
         type=model_type,
         num_classes=num_cluster,
         in_channels=3,
-        in_size=96,
+        in_size=32,
         batchnorm_track=True,
         test=False,
         feature_only=True
@@ -131,5 +135,5 @@ solver = dict(
 )
 
 results = dict(
-    output_dir="./results/stl10/{}".format(model_name),
+    output_dir="./results/cifar10/{}".format(model_name),
 )

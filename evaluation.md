@@ -16,7 +16,7 @@ SPICE-Self*:
 ```
 SPICE*
 ```shell script
-python tools/eval_semi.py --load_path ./model_zoo/model_stl10.pth --net WideResNet_stl10 --widen_factor 2 --data_dir ./datasets/stl10 --dataset stl10 --all 1 --num_classes 10
+python tools/eval_semi.py --load_path ./model_zoo/model_stl10.pth --net WideResNet_stl10 --widen_factor 2 --data_dir ./datasets/stl10 --dataset stl10 --all 0 --num_classes 10
 ```
 
 - Visualization of learned cluster semantics

@@ -79,6 +79,17 @@ All trained models in our paper are available as follows.
 | TinyImageNet     |  SPICE-Self       | 30.5                  | 44.9            | 16.3      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
 |                  |  SPICE-Self*      | 29.2                  | 52.5            | 14.5      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
 
+More models based on ResNet18 for both SPICE-Self* and SPICE-Semi*.
+
+| Dataset          | Version           | ACC                   |  NMI            |  ARI      |Model link |
+|------------------|-------------------|---------------------- |-----------------|-----------|--------------|
+| STL10            |  SPICE-Self*      | 86.2                  | 75.6            | 73.2      |[Model](https://drive.google.com/file/d/1fZ7RJOAUB5dFkmVGxuRTCe0sT5DoltyN/view?usp=sharing)  |
+|                  |  SPICE*           | 92.0                  | 85.2            | 83.6      |[Model](https://drive.google.com/file/d/1N8NhMGPeu_S9hiuLSKfdfxOHbhvE1pOu/view?usp=sharing)  |
+| CIFAR10          |  SPICE-Self*      | 84.5                  | 73.9            | 70.9      |[Model](https://drive.google.com/file/d/1J3gqkLIK5wPC3Vuw4zCjU0IpXCAxqsyx/view?usp=sharing)  |
+|                  |  SPICE*           | 91.8                  | 85.0            | 83.6      |[Model](https://drive.google.com/file/d/14qRE6lmzPOZPYSso-xZPfdVggWuVa7dB/view?usp=sharing) |
+| CIFAR100         |  SPICE-Self*      | 46.8                  | 45.7            | 32.1      |[Model](https://drive.google.com/file/d/11I__pO5n-OFRuh6OQ31IFdNBPpUtV9sv/view?usp=sharing)  |
+|                  |  SPICE*           | 53.5                  | 56.5            | 40.4      |[Model](https://drive.google.com/file/d/1K_3WRqJZA7GqXBhSFb2RLMQOSfRmgohe/view?usp=sharing)  |
+
 
 ## Acknowledgement for reference repos
 - [GATCluster](https://github.com/niuchuangnn/GATCluster)

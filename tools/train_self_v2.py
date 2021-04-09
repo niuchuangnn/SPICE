@@ -43,6 +43,12 @@ parser.add_argument(
     type=str,
 )
 
+parser.add_argument(
+    "--all",
+    default=1,
+    type=int,
+)
+
 
 def main():
     args = parser.parse_args()
@@ -56,6 +62,20 @@ def main():
 
     output_config_path = os.path.join(output_dir, 'config.py')
     save_config(cfg, output_config_path)
+
+    cfg.all = args.all
+    if cfg.all:
+        cfg.data_train.split = "train+test"
+        cfg.data_train.all = True
+        cfg.data_test.split = "train+test"
+        cfg.data_test.all = True
+    else:
+        cfg.data_train.split = "train"
+        cfg.data_train.all = False
+        cfg.data_train.train = True
+        cfg.data_test.split = "train"
+        cfg.data_test.all = False
+        cfg.data_test.train = True
 
     if cfg.seed is not None:
         random.seed(cfg.seed)
@@ -204,6 +224,8 @@ def main_worker(gpu, ngpus_per_node, cfg):
     loss_nmi = -1
     loss_ari = -1
     loss_epoch = -1
+    eval_ent = cfg.eval_ent
+    eval_ent_weight = cfg.eval_ent_weight
     for epoch in range(cfg.start_epoch, cfg.epochs):
         if cfg.distributed:
             train_sampler.set_epoch(epoch)
@@ -280,6 +302,12 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 gt_labels_select = gt_cluster_labels[h]
                 loss = loss_fn(pred_scores_select.cpu(), gt_labels_select)
 
+                if eval_ent:
+                    probs = scores_all[h].mean(dim=0)
+                    probs = torch.clamp(probs, min=1e-8)
+                    ent = -(probs * torch.log(probs)).sum()
+                    loss = loss - eval_ent_weight * ent
+
                 try:
                     acc = calculate_acc(pred_labels_h, gt_labels)
                 except:
@@ -320,11 +348,21 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 best_epoch = epoch
                 best_head = np.array(accs).argmax()
 
-                save_checkpoint({
-                    'epoch': epoch + 1,
-                    'state_dict': model.state_dict(),
-                    'optimizer': optimizer.state_dict(),
-                }, is_best=False, filename='{}/checkpoint_best.pth.tar'.format(cfg.results.output_dir))
+                state_dict = model.state_dict()
+                state_dict_save = {}
+                for k in list(state_dict.keys()):
+                    if not k.startswith('module.head'):
+                        state_dict_save[k] = state_dict[k]
+                    # print(k)
+                    if k.startswith('module.head.head_{}'.format(best_head)):
+                        state_dict_save['module.head.head_0.{}'.format(k[len('module.head.head_{}.'.format(best_head))::])] = state_dict[k]
+
+                torch.save(state_dict_save, '{}/checkpoint_best.pth.tar'.format(cfg.results.output_dir))
+                # save_checkpoint({
+                #     'epoch': epoch + 1,
+                #     'state_dict': model.state_dict(),
+                #     'optimizer': optimizer.state_dict(),
+                # }, is_best=False, filename='{}/checkpoint_best.pth.tar'.format(cfg.results.output_dir))
 
             if min_loss > losses.min():
                 min_loss = losses.min()
