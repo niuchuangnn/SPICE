@@ -97,3 +97,16 @@ More models based on ResNet18 for both SPICE-Self* and SPICE-Semi*.
 - [SCAN](https://github.com/wvangansbeke/Unsupervised-Classification)
 - [FixMatch](https://github.com/LeeDoYup/FixMatch-pytorch)
 - [IIC](https://github.com/xu-ji/IIC)
+
+## Citation
+
+```shell
+@misc{niu2021spice,
+      title={SPICE: Semantic Pseudo-labeling for Image Clustering}, 
+      author={Chuang Niu and Ge Wang},
+      year={2021},
+      eprint={2103.09382},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
