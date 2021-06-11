@@ -53,7 +53,7 @@ Evaluation of SPICE-Semi:
 ```shell script
 python tools/eval_semi.py --load_path PATH/TO/MODEL --net WideResNet --widen_factor 2 --data_dir PATH/TO/DATA --dataset cifar10 --all 1 
 ```
-Read the [evaluation tutorial](./evaluation.md) for more descriptions also including the visualization.
+Read the [evaluation tutorial](./evaluation.md) for more descriptions about the evaluation and the visualization of learned clusters.
 
 ## Model Zoo
 All trained models in our paper are available as follows.
