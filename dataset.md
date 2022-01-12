@@ -6,9 +6,11 @@ The overall layout of dataset folder ```./datasets``` is as
         ├── cifar10                   
         ├── cifar100                    
         ├── imagenet10_lmdb
-        ├── imagenet10_npy            
+        ├── imagenet10_npy
+        ├── imagenet10_npy_224 
         ├── imagenet_dog_lmdb
-        ├── imagenet_dog_npy              
+        ├── imagenet_dog_npy
+        ├── imagenet_dog_npy_224
         ├── stl10
             ├──stl10_binary               
         ├── tiny_imagenet_lmdb
