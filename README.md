@@ -12,7 +12,7 @@ This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382
 
 
 <tr>
-<td><img  height="190" src="./figures/proto-local.png"></td>
+<td><img  height="360" src="./figures/proto-local.png"></td>
 </tr>
 
 - **SOTA on 5 benchmarks. Please refer to [Papers With Code](https://paperswithcode.com/paper/spice-semantic-pseudo-labeling-for-image) for [Image Clustering](https://paperswithcode.com/task/image-clustering)**
