@@ -1,13 +1,14 @@
 model_name = "eval"
-weight = './model_zoo/self_model_imagenet10.pth.tar'
+weight = 'results/imagenet10/spice_self/checkpoint_select.pth.tar'
 device_id = 0
-fea_dim=2048
+fea_dim=512
 num_cluster = 10
 batch_size = 1
 center_ratio = 0.5
 world_size = 1
 workers = 4
 rank = 0
+model_type = 'resnet34'
 dist_url = 'tcp://localhost:10001'
 dist_backend = "nccl"
 seed = None
@@ -19,7 +20,8 @@ data_test = dict(
     lmdb_file='./datasets/imagenet10_lmdb',
     meta_info_file='./datasets/imagenet10_lmdb_meta_info.pkl',
     embedding=None,
-    resize=256,
+    resize=(224, 224),
+    split="train+test",
     shuffle=False,
     ims_per_batch=1,
     aspect_ratio_grouping=False,
@@ -41,9 +43,13 @@ data_test = dict(
 
 model = dict(
     feature=dict(
-        type="imagenet",
-        num_classes=128,
-        feature_only=True,
+        type=model_type,
+        num_classes=num_cluster,
+        in_channels=3,
+        in_size=224,
+        batchnorm_track=True,
+        test=False,
+        feature_only=True
     ),
 
     head=dict(type="sem_multi",
@@ -59,7 +65,6 @@ model = dict(
               ),
     model_type="moco_select",
     pretrained=weight,
-    head_id=9,
     freeze_conv=True,
 )
 

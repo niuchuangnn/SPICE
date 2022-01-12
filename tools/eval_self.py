@@ -1,16 +1,12 @@
 import argparse
 import builtins
-import math
 import os
 import random
-import shutil
-import time
 import warnings
 import sys
 sys.path.insert(0, './')
 
 import torch
-import torch.nn as nn
 import torch.nn.parallel
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
@@ -21,13 +17,10 @@ import torch.utils.data.distributed
 import torchvision.models as models
 from spice.config import Config
 from spice.data.build_dataset import build_dataset
-from spice.model.build_model_sim import build_model_sim
 from spice.model.sim2sem import Sim2Sem
-from spice.solver import make_lr_scheduler, make_optimizer
 from spice.utils.miscellaneous import mkdir, save_config
 import numpy as np
 from spice.utils.evaluation import calculate_acc, calculate_nmi, calculate_ari
-from spice.utils.load_model_weights import load_model_weights
 from matplotlib.pyplot import imsave
 from PIL import Image
 import matplotlib.pyplot as plt
@@ -183,25 +176,8 @@ def main_worker(gpu, ngpus_per_node, cfg):
         # this code only supports DistributedDataParallel.
         raise NotImplementedError("Only DistributedDataParallel is supported.")
 
-    # optionally resume from a checkpoint
-    # if cfg.model.pretrained is not None:
-    #     load_model_weights(model, cfg.model.pretrained, cfg.model.model_type, cfg.model.head_id)
-
     state_dict = torch.load(cfg.model.pretrained)
     model.load_state_dict(state_dict)
-
-    # state_dict = torch.load(cfg.model.pretrained)['state_dict']
-    # state_dict_save = {}
-    # for k in list(state_dict.keys()):
-    #     if not k.startswith('module.head'):
-    #         state_dict_save[k] = state_dict[k]
-    #     # print(k)
-    #     if k.startswith('module.head.head_{}'.format(cfg.model.head_id)):
-    #         state_dict_save['module.head.head_0.{}'.format(k[len('module.head.head_{}.'.format(cfg.model.head_id))::])] = \
-    #         state_dict[k]
-    #
-    # torch.save(state_dict_save, '{}/checkpoint_select.pth.tar'.format(cfg.results.output_dir))
-    # model.load_state_dict(state_dict_save)
 
     # Load similarity model
     cudnn.benchmark = True
@@ -221,11 +197,9 @@ def main_worker(gpu, ngpus_per_node, cfg):
 
     for _, (images, _, labels, idx) in enumerate(val_loader):
         images = images.to(cfg.gpu, non_blocking=True)
-        # print(images.shape)
         with torch.no_grad():
             scores = model(images, forward_type="sem")
 
-        # feas_sim.append(embs)
         assert len(scores) == num_heads
 
         pred_idx = scores[0].argmax(dim=1)
@@ -235,7 +209,6 @@ def main_worker(gpu, ngpus_per_node, cfg):
         gt_labels.append(labels)
 
     gt_labels = torch.cat(gt_labels).long().cpu().numpy()
-    # feas_sim = torch.cat(feas_sim, dim=0)
 
     pred_labels = torch.cat(pred_labels).long().cpu().numpy()
     scores = torch.cat(scores_all).cpu()
@@ -269,12 +242,6 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 img_c_ii = img_c[ii, ...].transpose([1, 2, 0])
                 imsave('{}/proto/{}_{}.png'.format(cfg.results.output_dir, c, ii), img_c_ii)
 
-            #     plt.figure()
-            #     plt.imshow(img_c_ii)
-            # plt.show()
-
-        # imgs = np.concatenate(imgs, axis=0)
-
         for c in range(cfg.num_cluster):
             dataset_val.data = imgs[c]
             for i in range(len(dataset_val)):
@@ -288,7 +255,6 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 sim_map = sim_map.reshape([7, 7])
                 sim_map = (sim_map - sim_map.min()) / (sim_map.max() - sim_map.min())
                 sim_map = sim_map.cpu().numpy()
-                # print(sim_map.shape)
 
                 img_c_ii = imgs[c][i, ...].transpose([1, 2, 0])
 
@@ -307,10 +273,6 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 attMap = 0.6 * img_c_ii + 0.4 * attMapV
                 attMap = attMap.astype(np.uint8)
                 imsave('{}/proto/{}_{}_att.png'.format(cfg.results.output_dir, c, i), attMap)
-
-                # plt.figure()
-                # plt.imshow(attMap)
-                # plt.show()
 
 
 if __name__ == '__main__':

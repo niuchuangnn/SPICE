@@ -3,7 +3,7 @@ from .mlp import MLP
 from .cluster_resnet import ClusterResNet
 from .resnet_stl import resnet18
 from .resnet_cifar import resnet18_cifar
-from .imagenet import ImageNet
+from .imagenet import ImageNet, ResNet34
 
 
 def build_feature_module(fea_cfg_ori):
@@ -21,5 +21,7 @@ def build_feature_module(fea_cfg_ori):
         return resnet18_cifar(**fea_cfg)
     elif fea_type == "imagenet":
         return ImageNet(**fea_cfg)
+    elif fea_type == 'resnet34':
+        return ResNet34(**fea_cfg)
     else:
         raise TypeError

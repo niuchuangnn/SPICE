@@ -1,7 +1,7 @@
 model_name = "eval"
-weight = './model_zoo/self_model_imagenet_dog.pth.tar'
+weight = 'results/imagenet_dog/spice_self/checkpoint_best.pth.tar'
 device_id = 0
-fea_dim = 2048
+fea_dim = 512
 num_cluster = 15
 batch_size = 1
 center_ratio = 0.5
@@ -13,13 +13,15 @@ dist_backend = "nccl"
 seed = None
 gpu = None
 multiprocessing_distributed = True
+model_type = 'resnet34'
 
 data_test = dict(
     type="imagenet_lmdb",
     lmdb_file='./datasets/imagenet_dog_lmdb',
     meta_info_file='./datasets/imagenet_dog_lmdb_meta_info.pkl',
     embedding=None,
-    resize=256,
+    resize=224,
+    split=None,
     shuffle=False,
     ims_per_batch=1,
     aspect_ratio_grouping=False,
@@ -41,9 +43,13 @@ data_test = dict(
 
 model = dict(
     feature=dict(
-        type="imagenet",
-        num_classes=128,
-        feature_only=True,
+        type=model_type,
+        num_classes=num_cluster,
+        in_channels=3,
+        in_size=224,
+        batchnorm_track=True,
+        test=False,
+        feature_only=True
     ),
 
     head=dict(type="sem_multi",
@@ -59,7 +65,6 @@ model = dict(
               ),
     model_type="moco_select",
     pretrained=weight,
-    head_id=3,
     freeze_conv=True,
 )
 

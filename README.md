@@ -1,12 +1,14 @@
 # SPICE: Semantic Pseudo-labeling for Image Clustering
 By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [Ge Wang](https://www.linkedin.com/in/ge-wang-axis/)
 
-This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382.pdf). (**In updating**)
+This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382.pdf).
 
 
-<tr>
-<p align="center"> <img height="360" src="./figures/framework.png"></p>
-</tr>
+[comment]: <> (<tr>)
+
+[comment]: <> (<p align="center"> <img height="360" src="./figures/framework.png"></p>)
+
+[comment]: <> (</tr>)
 
 
 <tr>
@@ -72,10 +74,14 @@ All trained models in our paper are available as follows.
 |                  |  SPICE            | 53.8                  | 56.7            | 38.7      |[Model](https://drive.google.com/file/d/1b2OakQjRu8vVXcLdRzFlOYoA71GzBDa0/view?usp=sharing)  |
 |                  |  SPICE-Self*      | 48.0                  | 45.0            | 30.8      |[Model](https://drive.google.com/file/d/1FLNdRw2kewvH06ROrsupcw8p6nMraxQ1/view?usp=sharing)  |
 |                  |  SPICE*           | 58.4                  | 58.3            | 42.2      |[Model](https://drive.google.com/file/d/1u8ajijNtLhDcypFRtJcCV1Njm8iMHkvP/view?usp=sharing)  |
-| ImageNet-10      |  SPICE-Self       | 96.9                  | 92.7            | 93.3      |[Model](https://drive.google.com/file/d/1C2ERpAVAnNgtX7OQON4od4_BBAubSMPr/view?usp=sharing)  |
+| ImageNet-10 (ImageNet Pretrained)      |  SPICE-Self       | 96.9                  | 92.7            | 93.3      |[Model](https://drive.google.com/file/d/1C2ERpAVAnNgtX7OQON4od4_BBAubSMPr/view?usp=sharing)  |
 |                  |  SPICE            | 96.7                  | 91.7            | 92.9      |[Model](https://drive.google.com/file/d/18AsOvwE0ElgHipcSKlwUad8-p3mv6EEm/view?usp=sharing)  |
-| ImageNet-Dog     |  SPICE-Self       | 54.6                  | 49.8            | 36.2      |[Model](https://drive.google.com/file/d/1pLcfEydw4L7yy_xlhgDq2nVImHooWdkQ/view?usp=sharing)  |
+| ImageNet-Dog (ImageNet Pretrained)     |  SPICE-Self       | 54.6                  | 49.8            | 36.2      |[Model](https://drive.google.com/file/d/1pLcfEydw4L7yy_xlhgDq2nVImHooWdkQ/view?usp=sharing)  |
 |                  |  SPICE            | 55.4                  | 50.4            | 34.3      |[Model](https://drive.google.com/file/d/1-qqckC8N9_zcIyI8NjB51qApDalFoXti/view?usp=sharing)  |
+| ImageNet-10      |  SPICE-Self       | 92.1                  | 82.8            | 83.6      |[Model](https://drive.google.com/file/d/1OHFvslIClQbqKqHURJEClNIAbTBl-OtN/view?usp=sharing)  |
+|                  |  SPICE            | 95.9                  | 90.2            | 91.2      |[Model](https://drive.google.com/file/d/1u42meN7mx-XoxtuMW6W5ciP0wop9tuum/view?usp=sharing)  |
+| ImageNet-Dog     |  SPICE-Self       | 64.6                  | 57.2            | 47.9      |[Model](https://drive.google.com/file/d/1AtIUqzwhc0T-OG5L20-m4Q45mKdPZf15/view?usp=sharing)  |
+|                  |  SPICE            | 67.5                  | 62.7            | 52.6      |[Model](https://drive.google.com/file/d/1hfH0vc0OOjISnZPU4cUCmxjsir6QQiFu/view?usp=sharing)  |
 | TinyImageNet     |  SPICE-Self       | 30.5                  | 44.9            | 16.3      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
 |                  |  SPICE-Self*      | 29.2                  | 52.5            | 14.5      |[Model](https://drive.google.com/file/d/1JnmptRFP5rNM61JI9ehwXLyfWtE3jS8l/view?usp=sharing)  |
 

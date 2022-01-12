@@ -110,7 +110,7 @@ if __name__ == "__main__":
             del load_model[k]
             # print(k)
 
-    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18', 'resnet18_cifar']:
+    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18', 'resnet18_cifar', 'resnet34']:
         _net_builder = net_builder(args.net,
                                    args.net_from_name,
                                    {'depth': args.depth,
@@ -164,10 +164,8 @@ if __name__ == "__main__":
 
     nmi = calculate_nmi(labels_pred, labels_gt)
     ari = calculate_ari(labels_pred, labels_gt)
-            # acc += logit.cpu().max(1)[1].eq(target).sum().numpy()
-    
+
     print(f"Test Accuracy: {acc}, NMI: {nmi}, ARI: {ari}")
-    # print(len(eval_dset))
 
     if args.scores_path is not None:
         np.save(args.scores_path, scores)

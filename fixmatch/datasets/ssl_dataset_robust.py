@@ -19,11 +19,13 @@ mean['cifar10'] = [x / 255 for x in [125.3, 123.0, 113.9]]
 mean['cifar100'] = [x / 255 for x in [129.3, 124.1, 112.4]]
 mean['stl10'] = [0.485, 0.456, 0.406]
 mean['npy'] = [0.485, 0.456, 0.406]
+mean['npy224'] = [0.485, 0.456, 0.406]
 
 std['cifar10'] = [x / 255 for x in [63.0, 62.1, 66.7]]
 std['cifar100'] = [x / 255 for x in [68.2,  65.4,  70.4]]
 std['stl10'] = [0.229, 0.224, 0.225]
 std['npy'] = [0.229, 0.224, 0.225]
+std['npy224'] = [0.229, 0.224, 0.225]
 
 
 def get_transform(mean, std, dataset, train=True):
@@ -31,6 +33,8 @@ def get_transform(mean, std, dataset, train=True):
         crop_size = 32
     elif dataset in ['stl10', 'npy']:
         crop_size = 96
+    elif dataset in ['npy224']:
+        crop_size = 224
     else:
         raise TypeError
     if train:
@@ -98,7 +102,7 @@ class SSL_Dataset:
             dset = STL10(root=self.data_dir, split=split)
             data = dset.data.transpose([0, 2, 3, 1])
 
-        elif self.name == "npy":
+        elif self.name == "npy" or self.name == 'npy224':
             dset = NPY(root=self.data_dir)
             data = dset.data
         else:

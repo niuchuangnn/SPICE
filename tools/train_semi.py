@@ -105,7 +105,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # SET FixMatch: class FixMatch in models.fixmatch
     args.bn_momentum = 1.0 - args.ema_m
-    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18', 'resnet18_cifar']:
+    if args.net in ['WideResNet', 'WideResNet_stl10', 'WideResNet_tiny', 'resnet18', 'resnet18_cifar', 'resnet34']:
         _net_builder = net_builder(args.net,
                                    args.net_from_name,
                                    {'depth': args.depth,
