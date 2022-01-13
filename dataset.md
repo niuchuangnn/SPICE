@@ -33,4 +33,4 @@ wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 ```shell script
 wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
 ```
-- The preprocessed versions of ImageNet10, ImageNetDog, and TinyImageNet can be downloaded [here](https://drive.google.com/file/d/154iP-M04oEB2TiieklPkVLU2mKO-2dKc/view?usp=sharing).
+- The preprocessed versions of ImageNet10, ImageNetDog, and TinyImageNet can be downloaded [here](https://drive.google.com/drive/folders/1XL0Nohi4vO2f1I4znf388n2pMP8PiKFd?usp=sharing).
