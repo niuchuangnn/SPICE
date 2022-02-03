@@ -8,7 +8,7 @@ python tools/train_moco.py
 ```
 ##### 2. Precompute embedding features
 ```shell script
-python tools/pre_compute_ebmedding.py
+python tools/pre_compute_embedding.py
 ```
 ##### 3. Train SPICE-Self
 ```shell script
