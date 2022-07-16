@@ -42,7 +42,7 @@ model_names = sorted(name for name in models.__dict__
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument(
     "--config-file",
-    default="./configs/cifar10/embedding.py",
+    default="./configs/stl10/embedding.py",
     metavar="FILE",
     help="path to config file",
     type=str,
