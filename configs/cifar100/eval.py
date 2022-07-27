@@ -2,7 +2,6 @@ model_name = "eval"
 weight = './model_zoo/self_model_cifar100.tar'
 model_type = 'clusterresnet'
 # model_type = 'resnet18_cifar'
-device_id = 0
 num_cluster = 20
 batch_size = 1000
 fea_dim = 512
@@ -13,7 +12,7 @@ rank = 0
 dist_url = 'tcp://localhost:10002'
 dist_backend = "nccl"
 seed = None
-gpu = None
+gpu = 0
 multiprocessing_distributed = True
 
 data_test = dict(

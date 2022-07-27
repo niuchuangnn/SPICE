@@ -1,5 +1,5 @@
 model_name = "spice_self"
-pre_model = "./results/stl10/moco/checkpoint_0999.pth.tar"
+pre_model = "./results/stl10/moco/checkpoint_final.pth.tar"
 embedding = "./results/stl10/embedding/feas_moco_512_l2.npy"
 resume = "./results/stl10/{}/checkpoint_last.pth.tar".format(model_name)
 model_type = "clusterresnet"

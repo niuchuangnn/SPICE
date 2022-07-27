@@ -126,6 +126,23 @@ def load_model_weights(model, weights_file, model_type, head_id=0):
             if k.startswith('module.encoder_q'):
                 # remove prefix
                 state_dict["module.{}".format(k[len('module.encoder_q.'):])] = state_dict[k]
+                # state_dict["{}".format(k[len('module.encoder_q.'):])] = state_dict[k]
+
+            # delete renamed or unused k
+            del state_dict[k]
+
+        msg = model.load_state_dict(state_dict, strict=False)
+        print(msg)
+
+    elif model_type == "moco_embedding":
+        # rename moco pre-trained keys
+        state_dict = pre_model['state_dict']
+        for k in list(state_dict.keys()):
+            # Initialize the feature module with encoder_q of moco.
+            if k.startswith('module.encoder_q'):
+                # remove prefix
+                # state_dict["module.{}".format(k[len('module.encoder_q.'):])] = state_dict[k]
+                state_dict["{}".format(k[len('module.encoder_q.'):])] = state_dict[k]
 
             # delete renamed or unused k
             del state_dict[k]

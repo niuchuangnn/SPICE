@@ -1,17 +1,16 @@
 model_name = "embedding"
-weight = "./results/cifar10/moco/checkpoint_0999.pth.tar"
-model_type = "clusterresnet"
-# model_type = "resnet18_cifar"
-device = 0
+weight = "./results/cifar10/moco_res18_cls/checkpoint_0999.pth.tar"
+# model_type = "clusterresnet"
+model_type = "resnet18_cifar"
 num_cluster = 10
 batch_size = 1000
 world_size = 1
 workers = 4
 rank = 0
-dist_url = 'tcp://localhost:10003'
+dist_url = 'tcp://localhost:10001'
 dist_backend = "nccl"
 seed = None
-gpu = None
+gpu = 0
 multiprocessing_distributed = True
 
 data_test = dict(
@@ -46,7 +45,7 @@ model_sim = dict(
     test=False,
     feature_only=True,
     pretrained=weight,
-    model_type="moco_sim_feature",
+    model_type="moco_embedding",
 )
 
 

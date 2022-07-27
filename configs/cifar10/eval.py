@@ -1,8 +1,8 @@
 model_name = "eval"
-weight = './model_zoo/self_model_cifar10.pth.tar'
-model_type = "clusterresnet"
-# model_type = "resnet18_cifar"
-device_id = 0
+# weight = './model_zoo/self_model_cifar10.pth.tar'
+weight = './results/cifar10/spice_self/checkpoint_best.pth.tar'
+# model_type = "clusterresnet"
+model_type = "resnet18_cifar"
 num_cluster = 10
 batch_size = 1000
 fea_dim = 512
@@ -13,15 +13,15 @@ rank = 0
 dist_url = 'tcp://localhost:10001'
 dist_backend = "nccl"
 seed = None
-gpu = None
-multiprocessing_distributed = True
+gpu = 0
+
 
 data_test = dict(
     type="cifar10",
     root_folder="./datasets/cifar10",
     embedding=None,
     train=True,
-    all=True,
+    all=False,
     shuffle=False,
     ims_per_batch=50,
     aspect_ratio_grouping=False,

@@ -1,6 +1,5 @@
 model_name = "eval"
 weight = 'results/imagenet10/spice_self/checkpoint_select.pth.tar'
-device_id = 0
 fea_dim=512
 num_cluster = 10
 batch_size = 1
@@ -12,7 +11,7 @@ model_type = 'resnet34'
 dist_url = 'tcp://localhost:10001'
 dist_backend = "nccl"
 seed = None
-gpu = None
+gpu = 0
 multiprocessing_distributed = True
 
 data_test = dict(
