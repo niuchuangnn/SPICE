@@ -26,7 +26,7 @@ This is a Pytorch implementation of the [paper](https://arxiv.org/pdf/2103.09382
 
 ## Installation
 Please refer to [requirement.txt](./requirements.txt) for all required packages.
-Assuming [Anaconda](https://www.anaconda.com/) with python 3.7, a step-by-step example for installing this project is as follows:
+Assuming [Anaconda](https://www.anaconda.com/) with python 3.8, a step-by-step example for installing this project is as follows:
 
 ```shell script
 conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
