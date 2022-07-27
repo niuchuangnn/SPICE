@@ -29,9 +29,10 @@ Please refer to [requirement.txt](./requirements.txt) for all required packages.
 Assuming [Anaconda](https://www.anaconda.com/) with python 3.7, a step-by-step example for installing this project is as follows:
 
 ```shell script
-conda install pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.1 -c pytorch
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 conda install -c conda-forge addict tensorboard python-lmdb
 conda install matplotlib scipy scikit-learn pillow
+conda install -c anaconda seaborn
 ```
 
 Then, clone this repo
