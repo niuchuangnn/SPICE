@@ -104,6 +104,9 @@ More models based on ResNet18 for both SPICE-Self* and SPICE-Semi*.
 - [FixMatch](https://github.com/LeeDoYup/FixMatch-pytorch)
 - [IIC](https://github.com/xu-ji/IIC)
 
+### License
+This project is under the CC-BY-NC 4.0 license. See [LICENSE](LICENSE) for details.
+
 ## Citation
 
 ```shell
