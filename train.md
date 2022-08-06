@@ -41,7 +41,7 @@ python tools/train_self_v2.py --config-file ./configs/cifar10/spice_self.py --al
 ```
 ##### 4. Determine reliable images
 ```shell script
-python tools/local_consistency.py --config-file ./configs/stl10/eval.py --embedding ./results/cifar10/embedding/feas_moco_512_l2.npy
+python tools/local_consistency.py --config-file ./configs/cifar10/eval.py --embedding ./results/cifar10/embedding/feas_moco_512_l2.npy
 ```
 
 ##### 5. Train SPICE-Semi, assuming 4 GPUs available.
